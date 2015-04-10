@@ -2,12 +2,10 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="1" author="Sudheer" >
-        <createTable tableName="Employee">
+        <createTable tableName="EMPLOYEE">
             <column name="id" type="int" startWith="1000" incrementBy="1" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -16,6 +14,40 @@
             </column>
             <column name="active" type="boolean" defaultValueBoolean="true"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Sudheer">
+        <dropColumn tableName="EMPLOYEE" columnName="active" />
+    </changeSet>
+
+    <changeSet id="3" author="Sudheer">
+        <addColumn tableName="EMPLOYEE">
+            <column name="gender" type="varchar2(10)">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="4" author="Sudheer">
+        <createTable tableName="DEPARTMENT">
+            <column name="id" type="int" autoIncrement="true" startWith="100" incrementBy="1">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar2(100)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addColumn tableName="EMPLOYEE">
+            <column name="deptID" type="int">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint baseTableName="EMPLOYEE" baseColumnNames="deptID"
+                                 constraintName="fk_employee_department" referencedTableName="DEPARTMENT"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="RESTRICT"/>
+
     </changeSet>
 
 </databaseChangeLog>
