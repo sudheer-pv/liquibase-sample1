@@ -50,4 +50,17 @@
 
     </changeSet>
 
+    <changeSet id="5" author="Sudheer">
+        <createIndex tableName="EMPLOYEE" indexName="index_EMP_NAME" unique="true">
+            <column name="empName" />
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="6" author="Sudheer">
+        <dropIndex tableName="EMPLOYEE" indexName="index_EMP_NAME" />
+        <createIndex tableName="EMPLOYEE" indexName="index_emp_name" unique="false">
+            <column name="empName" />
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>
